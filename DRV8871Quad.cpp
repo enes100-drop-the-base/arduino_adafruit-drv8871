@@ -6,38 +6,38 @@
 #include "Arduino.h"
 #include "DRV8871.h"
 
-DRV8871Quad::DRV8871Quad(DRV8871* motor1, DRV8871* motor2, DRV8871* motor3,
-                         DRV8871* motor4) {
-  _motor1 = motor1;
-  _motor2 = motor2;
-  _motor3 = motor3;
-  _motor4 = motor4;
+DRV8871Quad::DRV8871Quad(DRV8871 *frontRightMotor, DRV8871 *frontLeftMotor,
+                         DRV8871 *backRightMotor, DRV8871 *backLeftMotor) {
+  _frontRightMotor = frontRightMotor;
+  _frontLeftMotor = frontLeftMotor;
+  _backRightMotor = backRightMotor;
+  _backLeftMotor = backLeftMotor;
 }
 
 void DRV8871Quad::drive(byte speed, byte direction) {
-  _motor1->drive(speed, direction, 0);
-  _motor2->drive(speed, direction, 0);
-  _motor3->drive(speed, direction, 0);
-  _motor4->drive(speed, direction, 0);
+  _frontRightMotor->drive(speed, direction, 0);
+  _frontLeftMotor->drive(speed, direction, 0);
+  _backRightMotor->drive(speed, direction, 0);
+  _backLeftMotor->drive(speed, direction, 0);
 }
 
 void DRV8871Quad::turn(byte speed, byte direction) {
   if (direction == TURN_LEFT) {
-    _motor1->drive(speed, _motor1->DIRECTION_FORWARD, 0);
-    _motor2->drive(speed, _motor1->DIRECTION_BACKWARD, 0);
-    _motor3->drive(speed, _motor1->DIRECTION_FORWARD, 0);
-    _motor4->drive(speed, _motor1->DIRECTION_BACKWARD, 0);
+    _frontLeftMotor->drive(speed, _frontLeftMotor->DIRECTION_BACKWARD, 0);
+    _backLeftMotor->drive(speed, _backLeftMotor->DIRECTION_BACKWARD, 0);
+    _frontRightMotor->drive(speed, _frontRightMotor->DIRECTION_FORWARD, 0);
+    _backRightMotor->drive(speed, _backRightMotor->DIRECTION_FORWARD, 0);
   } else if (direction == TURN_RIGHT) {
-    _motor1->drive(speed, _motor1->DIRECTION_BACKWARD, 0);
-    _motor2->drive(speed, _motor1->DIRECTION_FORWARD, 0);
-    _motor3->drive(speed, _motor1->DIRECTION_BACKWARD, 0);
-    _motor4->drive(speed, _motor1->DIRECTION_FORWARD, 0);
+    _frontLeftMotor->drive(speed, _frontLeftMotor->DIRECTION_FORWARD, 0);
+    _backLeftMotor->drive(speed, _backLeftMotor->DIRECTION_FORWARD, 0);
+    _frontRightMotor->drive(speed, _frontRightMotor->DIRECTION_BACKWARD, 0);
+    _backRightMotor->drive(speed, _frontRightMotor->DIRECTION_BACKWARD, 0);
   }
 }
 
 void DRV8871Quad::breakdown(byte targetSpeed) {
-  _motor1->breakdown(targetSpeed, 0);
-  _motor2->breakdown(targetSpeed, 0);
-  _motor3->breakdown(targetSpeed, 0);
-  _motor4->breakdown(targetSpeed, 0);
+  _frontRightMotor->breakdown(targetSpeed, 0);
+  _frontLeftMotor->breakdown(targetSpeed, 0);
+  _backRightMotor->breakdown(targetSpeed, 0);
+  _backLeftMotor->breakdown(targetSpeed, 0);
 }

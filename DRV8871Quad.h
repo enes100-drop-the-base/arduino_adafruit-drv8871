@@ -10,8 +10,8 @@
 
 class DRV8871Quad {
  public:
-  DRV8871Quad(DRV8871* motor1, DRV8871* motor2, DRV8871* motor3,
-              DRV8871* motor4);
+  DRV8871Quad(DRV8871* frontRightMotor, DRV8871* frontLeftMotor,
+              DRV8871* backRightMotor, DRV8871* backLeftMotor);
   const byte DIRECTION_FORWARD = 1;
   const byte DIRECTION_BACKWARD = 2;
   const byte TURN_LEFT = 2;
@@ -21,9 +21,9 @@ class DRV8871Quad {
   void breakdown(byte targetSpeed = 0);
 
  private:
-  DRV8871* _motor1;
-  DRV8871* _motor2;
-  DRV8871* _motor3;
-  DRV8871* _motor4;
+  DRV8871* _frontRightMotor;
+  DRV8871* _frontLeftMotor;
+  DRV8871* _backRightMotor;
+  DRV8871* _backLeftMotor;
 };
 #endif
